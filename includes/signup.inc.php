@@ -1,62 +1,100 @@
-<?php
-session_start();
+<?php 
+if (isset($_POST['btnS'])) {
+	include_once 'dbC.inc.php';
 
-include_once 'dbC.inc.php';
+	session_start();
 
-$maxsize = 2097152;
+	$first = mysqli_real_escape_string($conn,$_POST['first']);
+	$last = mysqli_real_escape_string($conn,$_POST['last']);
+	$username = mysqli_real_escape_string($conn,$_POST['username']);
+	$email = mysqli_real_escape_string($conn,$_POST['email']);
+	$password = mysqli_real_escape_string($conn,$_POST['pass']);
+	$password2 = mysqli_real_escape_string($conn,$_POST['pass2']);
+	//$type = mysqli_real_escape_string($conn,$_POST['type']);
+	$_SESSION['repopulate'] = array($first,$last,$username,$email);
 
-if (isset($_FILES['avatar'])) {
-	if(($_FILES['avatar']['size'] >= $maxsize) || ($_FILES['avatar']['size'] == 0)) {
-		header("Location: ../index.php?signup=ErrorLongFile");
+	$re = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*[\'\"*><;\\\\\/]).{8,50}/m'; // Match for min 1 number/uppercase/lowercase and don't allow other simbols
+	$re2 = '/^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/m';
+	$re3 = '/^[a-zA-Z0-9 ]*$/'; // Match for just words
+
+	// Check empty espaces
+	if (empty($first) || empty($last) || empty($username) || empty($email) || empty($password) || empty($password2) ) {
+		$_SESSION['msg'] = "No puedes dejar campos vacios";
+		header("Location: ../signup.php?signup=empty");
+		exit();
 	}
-	$avatar = mysqli_real_escape_string($conn,file_get_contents($_FILES['avatar']['tmp_name']));
-}
-//else $avatar = NULL;
+	// Check if first and last name are just words
+	elseif (!preg_match($re3,$first) || !preg_match($re3,$last)) {
+		$_SESSION['msg'] = "Nombre invalido";
+		header("Location: ../signup.php?signup=invalidName");
+		exit();
+	}
+	// Check email format -@-.-
+	elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		$_SESSION['msg'] = "Formato de Correo ~@~.~";
+		header("Location: ../signup.php?signup=invalidEmail");
+		exit();
+	}
+	// Check if user is valid
+	elseif (!preg_match($re2,$username)) {
+		$_SESSION['msg'] = "Usuario Invalido usar solo letras numeros y barra baja";
+		header("Location: ../signup.php?signup=invalidUser");
+		exit();
+	}
+	// Check if password is allowed
+	elseif (!preg_match($re,$password)) {
+		$_SESSION['msg'] = "Contraseña invalida usar minimo una mayuscula una minuscula un numero, y no usar caracteres especiales";
+		header("Location: ../signup.php?signup=invalidPass");
+		exit();
+	}
+	// Password verification
+	elseif ($password != $password2) {
+		$_SESSION['msg'] = "Contraseñas no coinciden";
+		header("Location: ../signup.php?signup=noMatchPass");
+		exit();
+	}
+	// No invalid areas
+	else {
+		$sql = 
+		"
+		SELECT * FROM DOCENTE WHERE NOMBRE_USUARIO = '$username'
+		";
+		$result = mysqli_query($conn, $sql);
+		$checkResult = mysqli_num_rows($result);
+		// Check if user already exists
+		if ($checkResult > 0) {
+			$_SESSION['msg'] = "Este usuario ya esta en uso";
+			header("Location: ../signup.php?signup=userTaken");
+			exit();
+		}
+		else {
+			$hashedPass = password_hash($password, PASSWORD_DEFAULT);
 
-$first = mysqli_real_escape_string($conn,$_POST['first']);
-$last = mysqli_real_escape_string($conn,$_POST['last']);
-$username = mysqli_real_escape_string($conn,$_POST['user']);
-$email = mysqli_real_escape_string($conn,$_POST['email']);
-$password = mysqli_real_escape_string($conn,$_POST['pass']);
-$password2 = mysqli_real_escape_string($conn,$_POST['pass2']);
-$type = mysqli_real_escape_string($conn,$_POST['type']);
-
-$re = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*[\'\"*><;\\\\\/]).{8,50}/m';
-$re2 = '/^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/m';
-
-if ($username == $password) {
-	header("Location: ../index.php?signup=UserPassError");
+			$sql =  
+			"
+			UPDATE DOCENTE SET NOMBRE_USUARIO = ?, CONTRASENA = ?
+			WHERE CORREO_INST = '$email';
+			";
+			$stmt = mysqli_stmt_init($conn);
+			// Conection database or sql Error
+			if (!mysqli_stmt_prepare($stmt,$sql)) {
+				header("Location: ../signup.php?signup=Error");
+				exit();
+			}
+			// Success Insert
+			else {
+				mysqli_stmt_bind_param($stmt,"ss",$username,$hashedPass);
+				mysqli_stmt_execute($stmt);
+				$_SESSION['msg'] = "Registrado correctamente";
+				unset($_SESSION['repopulate']);
+				header("Location: ../signup.php?signup=success");
+				exit();
+			}
+		}
+	}
 }
-elseif (!preg_match($re,$password)) {
-	header("Location: ../index.php?signup=InvalidPass");
-}
-elseif (!preg_match($re2,$username)) {
-	# code...
-}
-elseif (empty($password) or $password != $password2) {
-	header("Location: ../index.php?signup=WrongPass");
-}
+// Redirect if not allowed access
 else {
-	$stmt = mysqli_stmt_init($conn);
-
-	if (isset($_FILES['avatar'])) {
-		$sql =
-		"
-		INSERT INTO `users` (user,first,last,pass,email,type,avatar) 
-		VALUES (?,?,?,?,?,?,'$avatar');
-		";
-	} else {
-		$sql =
-		"
-		INSERT INTO `users` (user,first,last,pass,email,type) 
-		VALUES (?,?,?,?,?,?);
-		";
-	}
-	if (!mysqli_stmt_prepare($stmt,$sql)) {
-		echo "SQL error";
-	} else {
-		mysqli_stmt_bind_param($stmt,"sssssi",$username,$first,$last,$password,$email,$type);
-		mysqli_stmt_execute($stmt);
-	}
-	header("Location: ../index.php?signup=success");
+	header('Location: ../signup.php?signup=error');
+	exit();
 }

@@ -31,7 +31,61 @@
 				</section>
 			</section>
 			<section>
-				<h1>hola</h1>
+				<section>
+					<h1>ENTIDADES</h1>
+				</section>
+				<section>
+					<ul>
+						<li>PAIS</li>
+						<li>CIUDAD</li>
+						<li>INSTITUCION</li>
+						<li>PROGRAMA</li>
+						<li>DOCENTE</li>
+						<li>DEPARTAMENTO</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Entidades principales</li>
+							<li>Dependencia de pais ciudad</li>
+							<li>Relacion M-N en Programa-Programa y Programa Docente</li>
+							<li>Programa-Programa es prerequisitos</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<ul>
+						<li>TIPO DOCENTE</li>
+						<li>TIPO PROGRAMA</li>
+						<li>TIPO INSTITUCION</li>
+						<li>ENFOQUE</li>
+					</ul>
+					<aside class="notes"></aside>
+				</section>
+				<section>
+					<h3>ENTIDADES DE ROMPIMIENTO</h3>
+					<ul>
+						<li>PROGRAMA PROGRAMA</li>
+						<li>PROGRAMA DOCENTE</li>
+					</ul>
+					<aside class="notes"></aside>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>MODELOS</h2>
+				</section>
+				<section>
+					<h3>CONCEPTUAL</h3>
+					<img style="height: 450px" src="src/conceptual.png">
+				</section>
+				<section>
+					<h3>LOGICO</h3>
+					<img style="height: 450px" src="src/logico.png">
+				</section>
+				<section>
+					<h3>FISICO</h3>
+					<img style="height: 450px" src="src/fisico.png">
+				</section>
 			</section>
 		</div>
 	</div>
@@ -46,7 +100,7 @@
 			history: true,
 			center: true,
 
-			transition: 'slide', // none/fade/slide/convex/concave/zoom
+			transition: 'fade', // none/fade/slide/convex/concave/zoom
 
 			dependencies: [
 

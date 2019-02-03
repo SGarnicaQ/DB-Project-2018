@@ -1,126 +1,260 @@
-* {
-	margin: 0px;
-	padding: 0px;
+/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-size:100%;
+	vertical-align:baseline;
+	background:transparent;
+}
+
+body {
+	line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+	display:block;
+}
+
+nav ul {
+	list-style:none;
+}
+
+blockquote, q {
+	quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content:'';
+	content:none;
+}
+
+a {
+	margin:0;
+	padding:0;
+	font-size:100%;
+	vertical-align:baseline;
+	background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+	background-color:#ff9;
+	color:#000;
+	text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+	background-color:#ff9;
+	color:#000; 
+	font-style:italic;
+	font-weight:bold;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+	border-bottom:1px dotted;
+	cursor:help;
+}
+
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+	display:block;
+	height:1px;
+	border:0;   
+	border-top:1px solid #cccccc;
+	margin:1em 0;
+	padding:0;
+}
+
+input, select {
+	vertical-align:middle;
+}
+
+/*MY CSS*/
+.main-wrapper {
+	margin: 0 auto;
+	width: 1000px;
+}
+a {
 	text-decoration: none;
 }
-
+body {
+	background-color: #aaa;
+}
 header {
 	width: 100%;
-	height: 60px;
+	height: 80px;
 	background-color: #000;
 }
-nav ul {
-	float: right;
-	margin-top: 20px;
-	margin-right: 60px;
-}
-nav ul li {
+header ul {
 	float: left;
-	margin-right: 20px;
+}
+header ul li {
+	float: left;
 	list-style: none;
 }
-nav ul li img{
+header ul li a {
+	font-size: 20px;
+	color: #fff;
+	line-height: 80px;
+	padding-left: 10px;
+}
+header .login {
+	float: right;
+}
+header .login form {
+	float: left;
+	padding-top: 20px;
+}
+header .login p {
+	float: left;
+	color: #fff;
+	font-size: 20px;
+	line-height: 80px;
+}
+header .login form input {
+	float: left;
+	width: 140px;
+	height: 40px;
+	padding: 0px 10px;
+	margin-right: 10px;
+	border: none;
+	background-color: #555; 
+	font-size: 20px;
+	color: #fff;
+}
+header .login form button {
+	float: left;
+	width: auto;
+	height: 40px;
+	margin-right: 10px;
+	border: none;
+	border-radius: 10%;
+	background-color: #ccc;
+	font-size: 20px;
+	color: #000;
+	cursor: pointer;
+}
+header .login button:hover {
+	background-color: #ddd;
+	color: #555;
+}
+header .login a {
+	display: block;
 	width: 60px;
 	height: 60px;
-	transform: translate(0,-20px);
-}
-nav ul li p {
-	color: #fff;
-	font-size: 16px;
-	font-family: sans-serif;
-}
-nav ul li a {
-	color: #fff;
-	font-size: 16px;
-	font-family: sans-serif;
-}
-nav ul li form [type="text"],  nav ul li form [type="password"] {
-	background: transparent;
-	color: #fff;
 	border: none;
-	border-bottom: 1px solid #fff;
-	font-size: 16px;
-}
-button {
-	background: transparent;
-	border: none;
-	border-radius: 10px;
+	float: left;
+	font-size: 20px;
 	color: #fff;
-	font-family: sans-serif;
-	font-size: 16px;
+	line-height: 80px;
 	cursor: pointer;
 }
-
-.formBox {
-	width: 320px;
-	height: 400px;
+.main-container {
+	padding-top: 30px;
+	font-size: 20px;
+	color: #fff;
+	line-height: 50px;
+}
+/**/
+.signup-form h1 {
+	text-align: center;
+}
+.signup-form {
+	width: 400px;
+	margin: 0 auto;
+	padding-top: 30px;
+	padding-bottom: 30px;
 	border-radius: 10%;
-	background-color: #000;
-	color: #fff;
-	top: 50%;
-	left: 50%;
-	position: absolute;
-	transform: translate(-50%, -50%);
-	box-sizing: border-box;
-	padding: 50px 30px;
-}
-.formBox [type="text"], .formBox [type="password"], .formBox [type="email"], .formBox select {
-	width: 100%;
-	border: none;
-	border-bottom: 1px solid #fff;
-	background: #000;
-	outline: none;
-	height: 40px;
-	color: #fff;
-	font-size: 16px;
-}
-.formBox select option {
-	background: #000;
-}
-
-.formBox button {
-	position: absolute;
-	left: 50%;
-	bottom: 5%;
-	transform: translate(-50%);
-}
-[type="file"]::before {
-	border: none;
-	content: '';
-	width: 100px;
-	height: 100px;
-	border-radius: 100%;
-	display: inline-block;
-	cursor: pointer;
-}
-.avatar{
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	position: absolute;
-	top: -50px;
-	left: calc(50% - 50px);
-}
-
-.selectTables {
-	width: auto;
-	height: auto;
-	background-color: #277CE5;
-	color: #fff;
 	position: relative;
 }
-.selectTables select {
-	background: #277CE5;
+.signup-form input {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0);
+	width: 80%;
+	height: 40px;
+	padding: 0px 5%;
+	margin-bottom: 2px;
+	border: none;
+	background-color: #ddd; 
+	font-size: 20px;
 	color: #fff;
-	width: 100%;
-	padding: 1px;
+	line-height: 40px;
+}
+.signup-form button {
+	margin: 0 auto;
+	display: block;
+	width: 40%;
+	height: 40px;
+	border: none;
+	border-radius: 10%;
+	background-color: #000; 
+	font-size: 20px;
+	color: #fff;
+	cursor: pointer;
+}
+.signup-form button:hover {
+	background-color: #555; 
+	color: #111;
+}
+/*temp*/
+
+.nav {
+	height: auto;
+	width: auto;
+	position: relative;
+	z-index: 1;
+	background-color: #000;
+	overflow-x: hidden;
 }
 
-.selectTables button {
-	position: absolute;
-	left: 50%;
-	bottom: 5%;
-	transform: translate(-50%);
+.nav button {
+	float: left;
+	padding: 8px 8px;
+	width: auto;
+	font-size: 25px;
+	color: #aaa;
+	background-color: transparent;
+	border: none;
+	display: block;
+}
+.nav button:hover {
+	color: #fff;
+}
+.tables {
+	padding-bottom: 50px;
 }
 
 table {
@@ -129,16 +263,6 @@ table {
 	width: 100%;
 	text-align: center;
 	border-collapse: collapse;
-}
-table td, table th {
-	border: 0px solid #FFFFFF;
-	padding: 3px 2px;
-}
-table tbody td {
-	font-size: 13px;
-}
-table tr:nth-child(even) {
-	background: #D0E4F5;
 }
 table thead {
 	background: #0B6FA4;
@@ -155,13 +279,51 @@ table thead th:first-child {
 	border-left: none;
 }
 
-table tfoot {
-	font-size: 14px;
-	font-weight: bold;
-	color: #333333;
-	background: #D0E4F5;
-	border-top: 3px solid #444444;
+table tbody tr:nth-child(even) {
+	background: #B3C0E5;
+	color: #000;
 }
-table tfoot td {
-	font-size: 14px;
+table tbody tr:nth-child(odd) {
+	background: #6F719E;
+	color: #fff;
+}
+table tbody td {
+	font-size: 20px;
+}
+footer {
+	width: 100%;
+	height: 30px;
+	background-color: #000;
+	position: fixed;
+	bottom: 0px;
+}
+footer ul {
+	float: right;
+}
+footer ul li {
+	margin-right: 10px;
+	float: left;
+	list-style: none;
+	color: #fff;
+}
+[type="file"]::before {
+	border: none;
+	content: '';
+	width: 100px;
+	height: 100px;
+	border-radius: 100%;
+	display: inline-block;
+	cursor: pointer;
+}
+.avatar{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	position: absolute;
+	/*top: -50px;
+	left: calc(50% - 50px);*/
+}
+.btnP {
+	float: right;
+	position: absolute;
 }

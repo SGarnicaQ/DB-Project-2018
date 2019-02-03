@@ -1,64 +1,50 @@
 <?php 
-	session_start();
-	include 'includes/dbC.inc.php';
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Bases de Datos</title>
+	<title>Bases de datos</title>
 
-	<link rel="icon" href="src/avatar2.png">
-	<!-- Stylesheet -->
+	<link rel="icon" href="src/avatar.png">
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
-	<!-- Ajax scripts -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-
 </head>
 <body>
 	<header>
-		<nav>
-			<ul>
-				<li>
-					<form action="index.php">
-						<button type="submit" name="btnH">INICIO</button>
-					</form>
-				</li>
-				<li>
-					<form action="slides.php">
-						<button type="submit" name="btnS">PRESENTACION</button>
-					</form>
-				</li>
-				<?php
-				if (isset($_SESSION['user']))
-					echo
-					'
-					<li>
-						<p>Bienvenido '.mysqli_real_escape_string($conn,$_SESSION['user']).'</p>
-					</li>
-					<li>
-						<img src="data:image/png;base64, '.base64_encode($_SESSION['avatar']).'">
-					</li>
-					<li>
-						<form action="includes/logout.inc.php">
-							<button type="submit" name="btnLogO">SALIR</button>
+			<div class="main-wrapper">
+				<ul>
+					<li><a href="index.php">INICIO</a></li>
+					<li><a href="profile.php">PERFIL</a></li>
+					<li><a href="slides.php">PRESENTACION</a></li>
+				</ul>
+				<div class="login">
+					<?php 
+					if (isset($_SESSION['username'])) {
+						echo
+						'
+						<p>Bienvenid@ '.$_SESSION['username'].'</p>
+						<form action="includes/logout.inc.php" method="POST">
+							<button type="submit" name="btnLO">Salir</button>
 						</form>
-					</li>
-					';
-				else
-					echo
-					'
-					<li>
+						';
+					}
+					else {
+						echo
+						'
 						<form action="includes/login.inc.php" method="POST">
-
-							<input required type="text" name = "first" placeholder="Usuario o Correo">
-							<input required type="password" name = "pass" placeholder="Contraseña">
-
-							<button type="submit" name="btnLogI">ENTRAR</button>
+							<input type="text" name="user_email" placeholder="Usuario/Correo">
+							<input type="password" name="pass" placeholder="Contraseña">
+							<button type="submit" name="btnL">ENTRAR</button>
 						</form>
-					</li>
-					';
-				?>
-			</ul> 		
-		</nav>
+						<form action="signup.php">
+							<button type="submit" name="btnR">Registrarse</button>
+						</form>
+						';
+					}
+					?>
+
+
+				</div>
+			</div>
 	</header>

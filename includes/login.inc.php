@@ -1,30 +1,64 @@
 <?php
 session_start();
 
-include_once 'dbC.inc.php';
+if (isset($_POST['btnL'])) {
+	include_once 'dbC.inc.php';
 
-$useremail = mysqli_real_escape_string($conn,$_POST['first']);
-$password = mysqli_real_escape_string($conn,$_POST['pass']);
+	$user_email = mysqli_real_escape_string($conn,$_POST['user_email']);
+	$password = mysqli_real_escape_string($conn,$_POST['pass']);
 
-$sql = 
-"
-SELECT *
-FROM `users`
-WHERE (user = ? OR email = ?) AND pass = ?;
-";
-$stmt = mysqli_stmt_init($conn);
+	// Check empty espaces
+	if (empty($user_email) || empty($password)) {
+		header("Location: ../index.php?login=empty");
+		exit();
+	}
+	else {
+		$sql =
+		"
+		SELECT * FROM DOCENTE WHERE NOMBRE_USUARIO = '$user_email' OR CORREO_INST = '$user_email';
+		";
+		$result = mysqli_query($conn,$sql);
+		$checkResult = mysqli_num_rows($result);
 
-if (!mysqli_stmt_prepare($stmt,$sql)) echo "SQL error";
+		// Check for database insertion error **Duplicated user/email**
+		if ($checkResult > 1) {
+			header("Location: ../index.php?login=error");
+			exit();
+		}
+		else {
+			if ($row = mysqli_fetch_assoc($result)) {
+
+				$CheckPass = password_verify($password,$row['CONTRASENA']);
+
+				// Check if password is incorrect
+				if ($CheckPass == false) {
+					header("Location: ../index.php?login=passError");
+					exit();
+				}
+				// Check if password is correct
+				elseif ($CheckPass == true) {
+					$_SESSION['username'] = $row['NOMBRE_DOC'];
+					$_SESSION['id'] = $row['CEDULA'];
+					$_SESSION['user'] = $row['NOMBRE_USUARIO'];
+					header("Location: ../profile.php?login=success");
+					exit();
+				}
+				// Check verification problems
+				else {
+					header("Location: ../index.php?login=error");
+					exit();
+				}
+			}
+			// Check if user don't exist
+			else {
+				header("Location: ../signup.php?login=user");
+				exit();
+			}
+		}
+	}
+}
+// Redirect if not allowed access
 else {
-	mysqli_stmt_bind_param($stmt,"sss",$useremail,$useremail,$password);
-	mysqli_stmt_execute($stmt);
+	header('Location: ../index.php?login=error');
+	exit();
 }
-$result = mysqli_stmt_get_result($stmt);
-
-if ($row = mysqli_fetch_assoc($result)) {
-	$_SESSION['user'] = $row['user'];
-	$_SESSION['pass'] = $password;
-	$_SESSION['avatar'] = $row['avatar'];
-	header("Location: ../index.php?login=success");
-}
-else header("Location: ../index.php?login=error");
