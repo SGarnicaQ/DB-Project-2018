@@ -1,0 +1,167 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	text-decoration: none;
+}
+
+header {
+	width: 100%;
+	height: 60px;
+	background-color: #000;
+}
+nav ul {
+	float: right;
+	margin-top: 20px;
+	margin-right: 60px;
+}
+nav ul li {
+	float: left;
+	margin-right: 20px;
+	list-style: none;
+}
+nav ul li img{
+	width: 60px;
+	height: 60px;
+	transform: translate(0,-20px);
+}
+nav ul li p {
+	color: #fff;
+	font-size: 16px;
+	font-family: sans-serif;
+}
+nav ul li a {
+	color: #fff;
+	font-size: 16px;
+	font-family: sans-serif;
+}
+nav ul li form [type="text"],  nav ul li form [type="password"] {
+	background: transparent;
+	color: #fff;
+	border: none;
+	border-bottom: 1px solid #fff;
+	font-size: 16px;
+}
+button {
+	background: transparent;
+	border: none;
+	border-radius: 10px;
+	color: #fff;
+	font-family: sans-serif;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.formBox {
+	width: 320px;
+	height: 400px;
+	border-radius: 10%;
+	background-color: #000;
+	color: #fff;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	box-sizing: border-box;
+	padding: 50px 30px;
+}
+.formBox [type="text"], .formBox [type="password"], .formBox [type="email"], .formBox select {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: #000;
+	outline: none;
+	height: 40px;
+	color: #fff;
+	font-size: 16px;
+}
+.formBox select option {
+	background: #000;
+}
+
+.formBox button {
+	position: absolute;
+	left: 50%;
+	bottom: 5%;
+	transform: translate(-50%);
+}
+[type="file"]::before {
+	border: none;
+	content: '';
+	width: 100px;
+	height: 100px;
+	border-radius: 100%;
+	display: inline-block;
+	cursor: pointer;
+}
+.avatar{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	position: absolute;
+	top: -50px;
+	left: calc(50% - 50px);
+}
+
+.selectTables {
+	width: auto;
+	height: auto;
+	background-color: #277CE5;
+	color: #fff;
+	position: relative;
+}
+.selectTables select {
+	background: #277CE5;
+	color: #fff;
+	width: 100%;
+	padding: 1px;
+}
+
+.selectTables button {
+	position: absolute;
+	left: 50%;
+	bottom: 5%;
+	transform: translate(-50%);
+}
+
+table {
+	font-family: "Times New Roman", Times, serif;
+	border: 1px solid #FFFFFF;
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+table td, table th {
+	border: 0px solid #FFFFFF;
+	padding: 3px 2px;
+}
+table tbody td {
+	font-size: 13px;
+}
+table tr:nth-child(even) {
+	background: #D0E4F5;
+}
+table thead {
+	background: #0B6FA4;
+	border-bottom: 5px solid #FFFFFF;
+}
+table thead th {
+	font-size: 17px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: center;
+	border-left: 2px solid #FFFFFF;
+}
+table thead th:first-child {
+	border-left: none;
+}
+
+table tfoot {
+	font-size: 14px;
+	font-weight: bold;
+	color: #333333;
+	background: #D0E4F5;
+	border-top: 3px solid #444444;
+}
+table tfoot td {
+	font-size: 14px;
+}
